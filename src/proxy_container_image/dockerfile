@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+RUN apt update && apt upgrade -y
+
+RUN pip install --upgrade pip
+
+RUN pip install aiohttp[speedups] 
+
+COPY . .
+
+WORKDIR /app
+
+EXPOSE 8000
+
+ENTRYPOINT ["python", "-m", "aiohttp.web", "-H", "0.0.0.0", "-P", "8000", "main:main"]
